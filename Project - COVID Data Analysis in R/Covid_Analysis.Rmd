@@ -1,0 +1,182 @@
+---
+title: "Covid Data Analysis"
+output: html_document
+author: Sam Cohen
+---
+
+## Setup
+```{r setup, include=TRUE, message = FALSE, warning = FALSE}
+# Load packages used in this session of R
+library(tidyverse)
+library(readxl)
+library(openxlsx)
+library(dplyr)
+library(readr)
+
+# Setting / checking working directory
+getwd()
+
+# Reading in data
+instability <- load("Ch7_Exercise1_Instability.RData") ## Instability
+instability <- dta
+ox_covid <- read_csv("OxCGRT_latest.csv") ## Covid Data
+ptreat <- readLines("Ch7_Exercise4_PostTreatmentSimulation.R") ## Post treatment simulation code
+us_states <- read_excel("USstates.xlsx")  ## US states
+
+
+```
+
+
+## Exploratory Analysis
+
+#### Data wrangling
+
+```{r}
+# Viewing Covid data
+head(ox_covid)
+```
+
+```{r}
+# cleaning Covid data
+ox_covid_us <- ox_covid %>% 
+  mutate("stAbbrev" = str_replace_all(string = RegionCode, pattern = "US_",
+                                      replacement = "" )) %>%  
+  filter(CountryName == "United States") %>% # Filtering for US
+  select(RegionName, RegionCode, Date, GovernmentResponseIndex, ConfirmedCases,
+         ConfirmedDeaths) # Selecting variables 
+  
+ox_covid_us <- data.frame(ox_covid_us) # Saving back to data frame
+```
+
+```{r}
+# Summarizing by state
+ox_covid_state <- ox_covid_us %>% 
+  dplyr::filter(Date >20201101 & Date < 20201115) %>%  # Filtering by start/end date
+  select(RegionName, GovernmentResponseIndex, ConfirmedDeaths, ConfirmedCases) %>% 
+  #selecting variables
+  group_by(state= RegionName) %>% #grouping by state
+  summarize(Average_state_policy = mean(GovernmentResponseIndex), total_deaths = sum(ConfirmedDeaths), total_cases = sum(ConfirmedCases))
+
+#summarizing by Covid
+ox_covid_state <-data.frame(ox_covid_state)
+```
+
+```{r}
+# Merging data sets 
+
+covid_master <- left_join(ox_covid_state, us_states, by="state") %>%
+  mutate(death_per_10k = (total_deaths/pop2019)*10000, pop_density = pop2019/sqMiles)
+covid_master <- data.frame(covid_master)
+
+#first three variables and first three lines
+covid_master[,1:3] %>% top_n(3)
+```
+
+#### Plotting deaths per 10,000 people against density.
+
+```{r}
+# plotting deaths/10k and density
+ggplot(data=covid_master, mapping = aes(x=pop_density, y=death_per_10k
+)) +
+  geom_point(color="red") +
+  labs(x = "Population Density", y = "Deaths per 10k People") +
+  geom_smooth(method=lm, se=FALSE) 
+
+```
+
+
+#### Plotting cases per 10,000 people against density with a color indicating political party of governor. 
+
+```{r }
+ggplot(data=covid_master, mapping = aes(x=pop_density, y=death_per_10k
+, color = Party)) +
+  geom_point() +
+  labs(x = "Population Density", y = "Deaths per 10k People") +
+  geom_smooth(method=lm, se=FALSE)
+```
+
+#### Positive cases as a function of policy, colored by party of governor.
+
+```{r }
+ggplot(data=covid_master, mapping = aes(x=Average_state_policy, y=total_cases
+, color = Party)) +
+  geom_point() +
+  labs(x = "Average state policy", y = "COVID Cases") +
+  geom_smooth(method=lm, se=FALSE) +
+  scale_y_continuous(limits = c(0, 4000000))
+```
+#### Column plot of deaths per 10k people by State and median age
+```{r}
+# Reordering states by death/10k count
+covid_master$state <- reorder(covid_master$state, -covid_master$death_per_10k)
+
+# Generating column plot
+ggplot(data=covid_master, mapping = aes(x=state, y=death_per_10k
+, fill = MedianAge)) + # shading by median age of State
+  geom_col() +
+  labs(x = "State", y = "Deaths per 10k People") + 
+  theme(axis.text.x = element_text(angle = 70, hjust = 1)) # Rotating x-axis text
+
+
+```
+
+#### Scatterplot: Average state policy and deaths per 10k
+```{r}
+ggplot(data=covid_master, mapping = aes(x=Average_state_policy, y=death_per_10k)) +
+         geom_point() +
+         labs(x = "Average state policy", y = "Deaths per 10k People") +
+         geom_smooth(method=lm, se=FALSE)
+  
+```
+
+-
+
+## Hypothesis testing
+
+### Regression: relationship between deaths and state policy (with control variables)
+```{r}
+# Bivariate
+lm(death_per_10k ~ Average_state_policy, data = covid_master) %>% summary()
+
+# Multivariate (controlling for age, cases and population density)
+lm(death_per_10k ~ Average_state_policy + MedianAge + total_cases + pop_density, data = covid_master) %>% summary()
+
+```
+
+### Estimating a bivariate model with instability as the dependent variable and democracy as the independent variable. Standardized coefficients used. 
+
+```{r}
+# Model: democracy and instability
+lm(scale(instab) ~ scale(democracy), data=instability)
+summary(lm(scale(instab) ~ scale(democracy), data=instability))
+```
+
+In the model above, instability is dependent on democracy (standardized). The results show a negative relationship-- the more democratic countries are, the less unstable they are. Specifically, a one positive unit change in democracy leads to a -4.541e-02 difference in standard deviations from the mean. The results are statistically significant.
+
+However, there is likely endogeneity, since there are may factors that can affect instability, such as economic conditions, health, natural disasters, war, etc. 
+
+
+### Including variable (lagged GDP) to combat endogeneity
+
+```{r}
+# Model: democracy + GDPlag and instability
+
+## Turning ln(gdp) to gdp
+instability$gdplag <- exp(instability$lngdplag)
+
+lm(scale(instab) ~ scale(democracy) + scale(gdplag), data=instability)
+summary(lm(scale(instab) ~ scale(democracy) + scale(gdplag), data=instability)
+)
+```
+Including standardized GDP lag changes the model-- democracy (standardized) now has a positive relationship with instability. However, it still gives a statistically significant result.
+
+### Estimating a model with logged-lagged GDP
+
+```{r}
+# Model: democracy + lnGDPlag and instability
+lm(scale(instab) ~ scale(democracy) + scale(lngdplag), data=instability)
+summary(lm(scale(instab) ~ scale(democracy) + scale(lngdplag), data=instability)
+)
+
+lm(scale(instab) ~ scale(democracy) + scale(lngdplag), data=instability)$coefficients
+```
