@@ -1,4 +1,4 @@
-In this project for my Data Science II class, I classified instances of electoral violence using decision tree and random forest algorithms. The all of the data used to perform this analysis and classification can be found in the main directory of this folder. Please run the Python notebooks in the following order:
+In this project for my Data Science II class, I classified instances of electoral violence using decision tree and random forest algorithms. All of the data used to perform this analysis and classification can be found in the main directory of this folder. Please run the Python notebooks in the following order:
 
 1) Preprocessing
 2) Exploratory Data Analysis
