@@ -8,5 +8,6 @@ The three Python notebooks here can be downloaded and should be run in the follo
 If downloaded directly, no change in directory is needed (there are relative paths). More information on IPEDS can be found at the National Center for Education Statistics. 
 
 Links:
-Kaggle Data Set- https://www.kaggle.com/datasets/sumithbhongale/american-university-data-ipeds-dataset 
+
+Kaggle Data Set - https://www.kaggle.com/datasets/sumithbhongale/american-university-data-ipeds-dataset 
 NCES IPEDS Information - https://nces.ed.gov/ipeds 
