@@ -3,5 +3,5 @@ This project was meant to showcase proficiency with data analysis in R. The "Cov
 The analysis is divided into 3 parts:
 1) **Setup**: Reading in data
 2) **Exploratory Analysis**: Cleaning, merging, and data visualizations
-3) **Hypothesis Testing**: Regression analysis
+3) **Hypothesis Testing**: Regression analysis, including bivariate, multivariate, logged, and scaled regressions
 
