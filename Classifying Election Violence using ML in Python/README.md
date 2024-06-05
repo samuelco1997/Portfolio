@@ -8,4 +8,4 @@ No change in directory is required if the folder is downloaded as is (there are 
 
 A full report and slide deck on this project, along with a codebook for the data, can be found in the "Report" sub-folder. 
 
-More on the Upsalla Conflict Data Center and DECO data can be found here: https://ucdp.uu.se/downloads/
+More on the Uppsala Conflict Data Program and DECO data can be found here: https://ucdp.uu.se/downloads/
