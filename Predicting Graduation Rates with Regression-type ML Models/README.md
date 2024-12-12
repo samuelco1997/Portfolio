@@ -11,6 +11,9 @@ The three Python notebooks here can be downloaded and should be run in the follo
 
 If downloaded directly, no change in directory is needed (there are relative paths). More information on IPEDS can be found at the National Center for Education Statistics website below. 
 
+### Data
+Data can be found in the "Data" folder. The IPEDS dataset used here is from Kaggle, and detail performance, enrollment and graduation data of different universities throughout the United States.
+
 ### Sources
 Kaggle Data Set - https://www.kaggle.com/datasets/sumithbhongale/american-university-data-ipeds-dataset 
 NCES IPEDS Information - https://nces.ed.gov/ipeds 
