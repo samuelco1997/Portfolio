@@ -10,7 +10,7 @@ This folder contains all of the files and data necessary to carry out this proce
 **2) DW_Modeling** - *Training the models*
 
 ### Data
-Please note that there are two raw data sets being used: reddit comments containing dog whistles (**"silent_signals_dw"**), and reddit comments that do not (**reddit_question_best_answers**). Because the latter was to large to upload to this repository, I have provided a link in the folder (**"RS_2013-12.jsonl"**)
+Please note that there are two raw data sets being used: reddit comments containing dog whistles (**"silent_signals_dw"**), and reddit comments that do not (**"reddit_question_best_answers"**). Because the latter was to large to upload to this repository, I have provided a link in the folder (**"RS_2013-12.jsonl"**)
 
 ### Analysis
 A report and slide deck detailing my findings and motivations for this project can be found in the **Analysis** folder.
