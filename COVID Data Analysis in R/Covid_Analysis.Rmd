@@ -17,11 +17,11 @@ library(readr)
 getwd()
 
 # Reading in data
-instability <- load("Ch7_Exercise1_Instability.RData") ## Instability
+instability <- load("Data/Ch7_Exercise1_Instability.RData") ## Instability
 instability <- dta
-ox_covid <- read_csv("OxCGRT_latest.csv") ## Covid Data
-ptreat <- readLines("Ch7_Exercise4_PostTreatmentSimulation.R") ## Post treatment simulation code
-us_states <- read_excel("USstates.xlsx")  ## US states
+ox_covid <- read_csv("Data/OxCGRT_latest.csv") ## Covid Data
+ptreat <- readLines("Data/Ch7_Exercise4_PostTreatmentSimulation.R") ## Post treatment simulation code
+us_states <- read_excel("Data/USstates.xlsx")  ## US states
 
 
 ```
@@ -105,6 +105,7 @@ ggplot(data=covid_master, mapping = aes(x=Average_state_policy, y=total_cases
   geom_smooth(method=lm, se=FALSE) +
   scale_y_continuous(limits = c(0, 4000000))
 ```
+
 #### Column plot of deaths per 10k people by State and median age
 ```{r}
 # Reordering states by death/10k count
