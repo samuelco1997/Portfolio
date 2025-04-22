@@ -17,4 +17,5 @@ A full report and slide deck on this project, along with a codebook for the data
 
 ### Sources
 More on the Uppsala Conflict Data Program and DECO data can be found here: https://ucdp.uu.se/downloads/
+
 The World Bank WDI website can be found here: https://databank.worldbank.org/reports.aspx?source=2&series=SP.POP.TOTL&country=#
