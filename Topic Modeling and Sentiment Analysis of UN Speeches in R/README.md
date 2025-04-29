@@ -1,6 +1,6 @@
-# Text as Data Final Project: Topic Modeling and Sentiment Analysis of UN Speeches
+Topic Modeling and Sentiment Analysis of UN Speeches
 
-This repository contains the code and deliverables for the Text as Data: Computational Linguistics final project, for which I decided to explore how topic modeling and sentiment anlaysis can be applied to UN speeches, as well as how these findings can be validated historically and geographically. 
+This repository contains the code and deliverables for my Text as Data: Computational Linguistics final project, for which I decided to explore how topic modeling and sentiment anlaysis can be applied to UN speeches, as well as how these findings can be validated historically and geographically. 
 
 While much of the data files were too large to push to GitHub, all of the R Markdown scripts, slide decks, and papers can be found in this repository. The final deliverables include the R Markdown file used to perform my analysis, an R Shiny app (available [here](https://scohen97.shinyapps.io/tad_app/)), and a report and slide deck on my findings. The structure of this repository is as follows:
 
@@ -11,7 +11,7 @@ The code used to clean, visualize, and perform topic modeling and sentiment anal
 The code for the R Shiny app and dashboard I used to illustrate my findings can be found int the *App* folder. A published, accessible, and publicly-available version of this dashboard can be found [here](https://scohen97.shinyapps.io/tad_app/).
 
 ### Report & Proposal
-A report detailing my findings and motivations, as well as my original proposal, can be found in the *Report* and *Proposal* folders respectively. A rendered version of the R Markdown file can also be found within the *Report* folder.
+A report detailing my findings and motivations can be found in the *Report* folder. A rendered version of the R Markdown file can also be found within the *Report* folder.
 
 ### Slide Deck 
 A slide deck detailing my findings can be found in the *Slide Deck* folder.
