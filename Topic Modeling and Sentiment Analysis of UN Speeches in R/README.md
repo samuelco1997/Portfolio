@@ -1,4 +1,4 @@
-Topic Modeling and Sentiment Analysis of UN Speeches
+# Topic Modeling and Sentiment Analysis of UN Speeches
 
 This repository contains the code and deliverables for my Text as Data: Computational Linguistics final project, for which I decided to explore how topic modeling and sentiment anlaysis can be applied to UN speeches, as well as how these findings can be validated historically and geographically. 
 
