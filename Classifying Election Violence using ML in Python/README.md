@@ -1,6 +1,6 @@
 # Classifying Election Violence using ML in Python
 
-In this project for my Data Science II class, I created models that could classify the likelihood of instances of electoral violence using random forest algorithms. The target variable here is "electoral violence uncertainty," measuring the likelihood of an event being classified as electoral violence. 
+In this project for my Data Science II class, I created models that could classify the likelihood of instances of electoral violence using random forest algorithms. The target variable here is "electoral violence uncertainty," measuring the likelihood of an event being classified as electoral violence. A random forest model was fit to the data, yielding an accuracy score of 0.85 and a F1 score of 0.78.
 
 ### Code
 All of the data used to perform this analysis and classification can be found in the main directory of this folder. No change in directory is necessary if the folder is downloaded as is. For replication, please run the Python notebooks in the following order:
